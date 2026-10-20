@@ -1,0 +1,54 @@
+{
+  "protocol": "released-data-audited-v1",
+  "profile": "smoke",
+  "seed": 42,
+  "n_override": null,
+  "rdkit_version": "2025.09.6",
+  "representations": [
+    "canonical_smiles",
+    "isomeric_smiles",
+    "randomized_smiles",
+    "deepsmiles",
+    "iupac",
+    "selfies",
+    "moljson",
+    "cml",
+    "inchi"
+  ],
+  "request_count": 270,
+  "task_counts": {
+    "1": 18,
+    "2": 90,
+    "3": 72,
+    "4": 18,
+    "5": 18,
+    "9": 18,
+    "10": 18,
+    "6": 18
+  },
+  "manifest_sha256": "b99adf64cb0a311a695aaab4251817d960876b91820fb3a1fdb1510f8ca7d64d",
+  "excluded_count": 0,
+  "retrieval_eligible_total": 78,
+  "data_files_sha256": {
+    "chebi20_test.csv": "6078762ffb7f2e40831007e02e5f549afffdcbfc4ffe45e74d0aed3c021f915c",
+    "chebi_prepared_500.csv": "123e87ae602c8a22f0ed14d43bfbfa203ad0a6119d15a5f4a644d634c7164cd4",
+    "comprehension_subset_ids.csv": "f30df327b58908dd3d3c698e83b3b4e4920f4f5fd737a8bb528d275c091b6426",
+    "fewshot_examples.csv": "5b103bf76d2ef99dd6ef8eaa6baa9b344d5a5ab84877f6c9a688be114170e260",
+    "isomer_pairs.csv": "1cc3a329ef8fd6fc988c3a23869a8fbe001d8811f4854ca052bcbedd87afe22a",
+    "iupac_failures.csv": "13b23f890376bff5c0ba0b21418d415c359b2b610fd6038192f03eb0ed399595",
+    "protonation_pairs250.csv": "60ac18ae9302b559e42b12b0c0080de2db189aaf7597b79555bcee5d6222d478",
+    "retrieval_distractors.csv": "eb9279df85a00d768332ce5dfa2c06f102cc27bba8b48d149e038a82ca375546",
+    "tautomer_pairs250.csv": "c1ebf0b1fd5a6635b85171ea452856a87fef6d596f74b5d53c487f51f2f5523e"
+  },
+  "iupac_policy": "released",
+  "iupac_status": "released names reused; member-specific validity NOT verified offline",
+  "deviations": [
+    "B5 uses CSV same-molecule labels; released code disagrees on 375/500",
+    "B6 cap 200 per supplied paper, not released config cap 250",
+    "B4 identical option order across representations",
+    "Random SMILES frozen per explicit manifest seed",
+    "All non-IUPAC pair inputs regenerated from member-specific SMILES",
+    "No blank-line stop sequence; prevent premature answer truncation",
+    "B9/B10 released CSV source says ChEBI-20, paper says ZINC250K"
+  ]
+}

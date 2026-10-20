@@ -1,0 +1,12 @@
+# Tested interpreter: Python 3.12. Portable target: Python 3.11 or 3.12, 64-bit.
+# These are this reproduction's pins, not the author's unrecorded environment.
+rdkit==2025.9.6
+selfies==2.2.0
+deepsmiles==1.0.1
+openbabel-wheel==3.1.1.23
+numpy==2.3.5
+scipy==1.16.2
+pandas==2.2.3
+requests==2.32.5
+python-docx==1.2.0
+reportlab==4.4.9

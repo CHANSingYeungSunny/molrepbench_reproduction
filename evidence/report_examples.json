@@ -1,0 +1,697 @@
+{
+  "examples": {
+    "B1": {
+      "id": "B1:439741:C:canonical_smiles",
+      "subtask": "C",
+      "representation": "canonical_smiles",
+      "prompt": "How many C atoms are in the following molecule?\nMolecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O\n\nPlease reason step by step, and put your final answer within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{42}",
+      "ground_truth": 13,
+      "raw_answer_head": "Let's count the carbon atoms in the given SMILES string:  \n**Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O**\n\n---\n\n### Step 1 – Identify the base (purine-like) part\n- `Nc1ncnc2c1ncn2`  \nThis is an adenine-like bicyclic system.  \nLet's count carbons in this part:  \n- The `c1` through `c2` ring system:  \n  - Positions: c1 (C), n, c, n, c2 (C) → 3 carbons in the 6-membered ring? Wait, let's check carefully.\n\nBetter approach: parse the ring system.\n\n`Nc1ncnc2c1ncn2`:\n\n- First ring (6-membered):  \n  Atoms: c1 (C), n, c, n, c2 (C), c1 (C) → Wait, that's not quite right; let's number.\n\nActually, `c1ncnc2c1ncn2` is a fused bicyclic (purine skeleton):\n\nLabel them:\n- Atom 1: aromatic C (attached to N) → C  \n- Atom 2: n  \n- Atom 3: c → C  \n- Atom 4: n  \n- Atom 5: c2 → C (bridgehead)  \n- Atom 6: c1 → C (bridgehead, same as atom 1? No, c1 is closure to atom 1, so that's the other bridgehead carbon).  \nWait, typical purine numbering: 5 carbons in the imidazole + pyrimidine? Let's just count the c's.\n\nString: Nc1ncnc2c1ncn2  \n- c1: C  \n- n  \n- c: C  \n- n  \n- c2: C  \n- c1: C (closing ring 1)  \n- n  \n- c: C  \n- n2: N closing ring 2.\n\nSo carbons in this part: c1, c, c2, c1, c → that’s: ",
+      "raw_answer_chars": 7194,
+      "parsed": 13,
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 92,
+        "completion_tokens": 2704,
+        "total_tokens": 2796,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 92
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    },
+    "B2": {
+      "id": "B2:439741:primary_amine:canonical_smiles",
+      "subtask": "primary_amine",
+      "representation": "canonical_smiles",
+      "prompt": "Does the following molecule contain a Primary amine?\nMolecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O\n\nPlease reason step by step, and put your final answer (Yes or No) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{Yes} or \\boxed{No}",
+      "ground_truth": true,
+      "raw_answer_head": "Let's examine the structure of the molecule from the given SMILES:  \n\n**Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O**\n\n---\n\n**Step 1 – Identify what a primary amine is**  \nA primary amine has the general structure R–NH₂, meaning the nitrogen is bonded to only one carbon (or other non-hydrogen) atom and has two hydrogen atoms.\n\n---\n\n**Step 2 – Look for nitrogen atoms in the molecule**  \nThe SMILES starts with \"Nc1ncnc2c1ncn2...\"  \n- The first “N” before “c1” is likely an –NH₂ group attached to an aromatic ring (adenine-like base).  \n- The lowercase “n” atoms are aromatic nitrogens in the rings (part of the purine-like structure), not primary amines.\n\n---\n\n**Step 3 – Check the first nitrogen (Nc1...)**  \nThis “N” is attached to a carbon in the aromatic ring and has two implicit hydrogens (since it’s written as “N” not “NH” in SMILES, but in this context it’s –NH₂).  \nThat is a primary amine because it’s attached to only one carbon (the ring carbon), and the other two bonds are to hydrogens.\n\n---\n\n**Step 4 – Check other nitrogens**  \nThe other nitrogens are in the rings (aromatic, bonded to two carbons each) → not primary amines.  \nNo other –NH₂ groups are present elsew",
+      "raw_answer_chars": 1419,
+      "parsed": true,
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 103,
+        "completion_tokens": 389,
+        "total_tokens": 492,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 103
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    },
+    "B3": {
+      "id": "B3:439741:logp:canonical_smiles",
+      "subtask": "logp",
+      "representation": "canonical_smiles",
+      "prompt": "Estimate the LogP (partition coefficient) of the following molecule.\nMolecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O\n\nPlease reason step by step, and put your final answer (a number) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{3.5}",
+      "ground_truth": -2.276199999999999,
+      "raw_answer_head": "This molecule is a nucleotide analog: specifically, it looks like an adenine nucleotide derivative with a modified sugar and a diphosphate linked to a glyceric acid-like moiety. Let’s break it down.\n\n**Step 1 – Identify key fragments and their contributions**\n\n1. **Adenine base** (Nc1ncnc2c1ncn2–): aromatic, quite polar, LogP contribution roughly −0.1 to 0.1. Adenine alone has LogP ≈ −0.1.\n   \n2. **Sugar ring** (C1OC(...)C(O)C1O): a ribose-like tetrahydrofuran with two hydroxyls. Very hydrophilic, contributes significantly negative LogP (each OH ≈ −0.7 to −1.0 in LogP terms). The sugar itself is very polar.\n\n3. **Phosphate groups**: Two phosphate groups (P(=O)(O)…) — ionizable, highly hydrophilic. At physiological pH they’re ionized; in neutral form for LogP calculation, still very polar. Each phosphate can contribute −1.5 to −2 or more to LogP.\n\n4. **Glyceric acid-like end** (–OCC(O)C(=O)O): contains a carboxylic acid and a hydroxyl — very polar, ionizable, LogP contribution strongly negative.\n\n**Step 2 – General estimation approach**\n\nSuch a molecule is large and has multiple H-bond donors/acceptors, several charges possible. Experimentally, nucleotides and sugar phosphates have ",
+      "raw_answer_chars": 2275,
+      "parsed": -4.5,
+      "correct": 0,
+      "usage": {
+        "prompt_tokens": 102,
+        "completion_tokens": 597,
+        "total_tokens": 699,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 102
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "Spearman"
+    },
+    "B4": {
+      "id": "B4:439741:choice:canonical_smiles",
+      "subtask": "choice",
+      "representation": "canonical_smiles",
+      "prompt": "Which of the following molecules matches this description?\nDescription: The molecule is a nucleotide-aldonic acid, a monophosphoglyceric acid and a tetronic acid derivative. It is a conjugate acid of a 3-ADP-glycerate(3-).\nA: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O\nB: Nc1nc(O)nc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O\nC: COc1cccc2[nH]cc(CC(=NOS(=O)(=O)[O-])SC3OC(CO)C(O)C(O)C3O)c12\nD: CCC(C)CCC=C(C)C(O)=NC1=CC(O)(C=CC=CC=CC(O)=NC2=C(O)CCC2=O)C(O)CC1=O\n\nPlease reason step by step, and put your final answer (only the choice letter) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{A}",
+      "ground_truth": "A",
+      "raw_answer_head": "Let's go through the description and the options step-by-step.\n\n**Description details:**\n- \"Nucleotide-aldonic acid\" → suggests a nucleotide linked to an aldonic acid (sugar acid).\n- \"Monophosphoglyceric acid\" → contains a single phosphate and a glyceric acid moiety.\n- \"Tetronic acid derivative\" → tetronic acid is a 4-carbon acid; glyceric acid (3 carbons) is related but tetronic acid has 4 carbons — possibly referring to the sugar acid part.\n- \"Conjugate acid of a 3-ADP-glycerate(3-)\" → 3-ADP-glycerate is an intermediate in glycolysis (in some organisms), where ADP is linked to glycerate via a phosphate on the 3-OH of glycerate. This suggests adenosine diphosphate plus glycerate.\n\n**Option A:**\n- Has adenine (Nc1ncnc2c1ncn2...), ribose, and a diphosphate (COP(=O)(O)OP(=O)(O)O...), then connects to OCC(O)C(=O)O — that’s glycerate attached via phosphate.\n- This matches ADP-glycerate: ADP + glycerate-3-phosphate type structure (actually 3-ADP-glycerate is ADP attached to glycerate 3-phosphate? Wait, but here it is ADP + glycerate directly? Let's check: In the SMILES, the terminal part is OCC(O)C(=O)O — that’s glyceric acid with a phosphate linkage to the ADP. Yes, that’s 3-ADP-glycer",
+      "raw_answer_chars": 1927,
+      "parsed": "A",
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 253,
+        "completion_tokens": 541,
+        "total_tokens": 794,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 253
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    },
+    "B5": {
+      "id": "B5:0:binary:canonical_smiles",
+      "subtask": "binary",
+      "representation": "canonical_smiles",
+      "prompt": "Do the following two molecular representations refer to the same molecule?\nMolecule 1: CC(=O)C(O)C(O)C(=O)COP(=O)(O)O\nMolecule 2: CC(=O)C(O)C(O)C(=O)COP(=O)(O)O\n\nPlease reason step by step, and put your final answer (Yes or No) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{Yes} or \\boxed{No}",
+      "ground_truth": true,
+      "raw_answer_head": "The two representations are identical strings:  \n`CC(=O)C(O)C(O)C(=O)COP(=O)(O)O`.\n\nSince both strings are exactly the same, they describe the same molecular structure and connectivity — there’s no difference in atom arrangement, stereochemistry (none is specified), or functional groups.\n\nTherefore, they refer to the same molecule.\n\nThe answer is \\boxed{Yes}",
+      "raw_answer_chars": 360,
+      "parsed": true,
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 109,
+        "completion_tokens": 82,
+        "total_tokens": 191,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 109
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    },
+    "B6": {
+      "id": "B6:5354212:generation:canonical_smiles",
+      "subtask": "generation",
+      "representation": "canonical_smiles",
+      "prompt": "Given a description of a molecule, generate the corresponding Canonical SMILES string.\n\nIMPORTANT: Don't restate the full description - get straight to generating the molecule. Keep any reasoning brief and concise. Output tokens are limited, so provide your final answer as quickly as possible.\n\nDescription: The molecule is a steroid ester that is methyl (17E)-pregna-4,17-dien-21-oate substituted by oxo groups at positions 3 and 11. It is a 3-oxo-Delta(4) steroid, an 11-oxo steroid, a steroid ester and a methyl ester. It derives from a hydride of a pregnane.\n\nYour final output must be a JSON object in this format:\n{\"molecule\": \"...\"}\n\nWhere the value is the complete Canonical SMILES string. Keep the reasoning concise and short. Don't ramble, be decisive. As soon as possible, output the JSON object.",
+      "ground_truth": "COC(=O)/C=C1/CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3C(=O)C[C@]12C",
+      "raw_answer_head": "{\"molecule\": \"COC(=O)C=C1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3C(=O)C[C@]12C\"}",
+      "raw_answer_chars": 82,
+      "parsed": "COC(=O)C=C1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3C(=O)C[C@]12C",
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 198,
+        "completion_tokens": 52,
+        "total_tokens": 250,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 198
+      },
+      "finish_reason": "stop",
+      "decode_status": "ok",
+      "metric": "validity + exact match"
+    },
+    "B9": {
+      "id": "B9:0:binary:canonical_smiles",
+      "subtask": "binary",
+      "representation": "canonical_smiles",
+      "prompt": "Are the following two molecules tautomeric forms of the same compound?\nMolecule 1: C=C(C)C1C=CC(C)C(=O)C1\nMolecule 2: C=C(C)C1C=C(O)C(C)=CC1\n\nPlease reason step by step, and put your final answer (Yes or No) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{Yes} or \\boxed{No}",
+      "ground_truth": true,
+      "raw_answer_head": "Let's examine the two molecular structures step by step.\n\n---\n\n**Step 1 – Understanding tautomerism**  \nTautomers are constitutional isomers that differ in the position of a proton and a double bond, often involving a keto–enol or imine–enamine relationship. The key is that they are the same compound in different forms and can interconvert, usually by movement of a hydrogen atom and shifting of a double bond.\n\n---\n\n**Step 2 – Analyzing Molecule 1**  \nMolecule 1: C=C(C)C1C=CC(C)C(=O)C1  \nLet’s parse it:  \n- It’s a cyclohexane-type ring (C1...C1).\n- There’s an isopropenyl group (C=C(C)) attached.\n- In the ring, there’s a ketone (C=O) at one position (C(=O)C1).\n- There’s also a double bond in the ring (C=C).\n- There’s a methyl group (C) attached to the ring at one position.\n\nSo molecule 1 has a ketone and a C=C in the ring—this is a cyclohexenone-type structure.\n\n---\n\n**Step 3 – Analyzing Molecule 2**  \nMolecule 2: C=C(C)C1C=C(O)C(C)=CC1  \nParsing:  \n- Same isopropenyl group (C=C(C)) attached to C1 of the ring.\n- The ring: C1C=C(O)C(C)=CC1 — here we see C=C(O), meaning an enol (hydroxyl on a double-bonded carbon).\n- There’s a methyl group (C) on the ring.\n- The ring has two double bon",
+      "raw_answer_chars": 6738,
+      "parsed": false,
+      "correct": 0,
+      "usage": {
+        "prompt_tokens": 103,
+        "completion_tokens": 2373,
+        "total_tokens": 2476,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 103
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    },
+    "B10": {
+      "id": "B10:0:binary:canonical_smiles",
+      "subtask": "binary",
+      "representation": "canonical_smiles",
+      "prompt": "Are the following two molecules different protonation states of the same compound?\nMolecule 1: NCc1[nH]cc(CCC(=O)O)c1CC(=O)O\nMolecule 2: NCc1[nH]cc(CCC(=O)[O-])c1CC(=O)O\n\nPlease reason step by step, and put your final answer (Yes or No) within \\boxed{}.\n\nExample format: After reasoning, conclude with: The answer is \\boxed{Yes} or \\boxed{No}",
+      "ground_truth": true,
+      "raw_answer_head": "Let's compare the two molecules step by step.\n\n**Molecule 1:**  \n`NCc1[nH]cc(CCC(=O)O)c1CC(=O)O`\n\n**Molecule 2:**  \n`NCc1[nH]cc(CCC(=O)[O-])c1CC(=O)O`\n\n---\n\n1. **Look at the core structure**:  \n   Both have the same indole-like or pyrrole ring (specifically, it's an indole-type ring with `[nH]`), with substituents:\n   - `NCc1...` → aminomethyl group on the ring.\n   - `CCC(=O)O` in one position.\n   - `CC(=O)O` in another position.\n\n2. **Compare functional groups**:  \n   - Molecule 1 has two carboxylic acid groups: `CCC(=O)O` and `CC(=O)O`.  \n   - Molecule 2 has one carboxylic acid (`CC(=O)O`) and one carboxylate (`CCC(=O)[O-]`).\n\n3. **Protonation state difference**:  \n   - The only difference is that one `COOH` in Molecule 1 is deprotonated to `COO⁻` in Molecule 2.  \n   - Same molecular skeleton, same positions of substituents — just a difference in protonation.\n\n4. **Conclusion**:  \n   They are indeed different protonation states of the same compound.\n\n---\n\nThe answer is \\boxed{Yes}",
+      "raw_answer_chars": 997,
+      "parsed": true,
+      "correct": 1,
+      "usage": {
+        "prompt_tokens": 116,
+        "completion_tokens": 309,
+        "total_tokens": 425,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 116
+      },
+      "finish_reason": "stop",
+      "decode_status": null,
+      "metric": "exact match"
+    }
+  },
+  "failures": [
+    {
+      "kind": "输出被截断",
+      "id": "B3:439741:tpsa:randomized_smiles",
+      "task": 3,
+      "subtask": "tpsa",
+      "representation": "randomized_smiles",
+      "why": "finish_reason=length，消耗 8299 tokens（上限 8192）",
+      "prompt_head": "Estimate the Topological Polar Surface Area (TPSA) of the following molecule.\nMolecule: n1c(c2c(n(cn2)C2C(O)C(O)C(COP(=O)(OP(=O)(OCC(O)C(=O)O)O)O)O2)nc1)N\n\nPlease reason step by step, and put your fin",
+      "answer_tail": ", no H: 4.36  \nN aromatic, 3 bonds, 1 H: 15.79  \nNH2 aromatic: 26.02  \n\nBut maybe in adenine, N9 is not aromatic? No, it is. So maybe PubChem's 70.7 is wrong? No, PubChem is correct. Let me compute adenine TPSA manually:  \nAdenine: C5H5N5.  \nN1: pyridine-like, no H: 12.89  \nN3: pyridine-like, no H: ",
+      "parsed": null,
+      "correct": 0,
+      "counted_as": "未解析答案，记为未评估，不删除"
+    },
+    {
+      "kind": "输出被截断",
+      "id": "B6:5354212:generation:selfies",
+      "task": 6,
+      "subtask": "generation",
+      "representation": "selfies",
+      "why": "finish_reason=length，消耗 8388 tokens（上限 8192）",
+      "prompt_head": "Given a description of a molecule, generate the corresponding SELFIES string.\n\nIMPORTANT: Don't restate the full description - get straight to generating the molecule. Keep any reasoning brief and con",
+      "answer_tail": "][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C",
+      "parsed": "{\"molecule\": \"[C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C][C",
+      "correct": 0,
+      "counted_as": "未解析答案，记为未评估，不删除"
+    },
+    {
+      "kind": "输出被截断",
+      "id": "B6:53239731:generation:selfies",
+      "task": 6,
+      "subtask": "generation",
+      "representation": "selfies",
+      "why": "finish_reason=length，消耗 8425 tokens（上限 8192）",
+      "prompt_head": "Given a description of a molecule, generate the corresponding SELFIES string.\n\nIMPORTANT: Don't restate the full description - get straight to generating the molecule. Keep any reasoning brief and con",
+      "answer_tail": "@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H",
+      "parsed": "{\"molecule\": \"[C][C@H1][C@@H1][C@H1][C@H1][O][C@@H1]1[C@@H1][C@H1]([C@@H1]([C@H1]([O]1)[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([C@H1]([O])[C@@H1]([C@H1]([C@H1]([C@H",
+      "correct": 0,
+      "counted_as": "未解析答案，记为未评估，不删除"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B1:439741:C:selfies",
+      "task": 1,
+      "subtask": "C",
+      "representation": "selfies",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "How many C atoms are in the following molecule?\nMolecule: [N][C][=N][C][=N][C][=C][Ring1][=Branch1][N][=C][N][Ring1][Branch1][C@@H1][O][C@H1][Branch2][Ring1][=N][C][O][P][=Branch1][C][=O][Branch1][C][",
+      "answer_tail": "*  \n52. `[O]` – oxygen, skip.  \n53. `[C@H1]` – **20 C** (chiral)  \n54. `[Ring2]` – ring closure.  \n55. `[Ring1]` – ring closure.  \n56. `[=Branch1]` – branch.  \n57. `[O]` – oxygen, skip.  \n\n---\n\nWe’ve counted **20 carbon atoms** following every `C` in the SMILES string.\n\n---\n\nThe answer is \\boxed{20}",
+      "ground_truth": 13,
+      "parsed": 20,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B2:439741:ester:deepsmiles",
+      "task": 2,
+      "subtask": "ester",
+      "representation": "deepsmiles",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "Does the following molecule contain a Ester?\nMolecule: Ncncncc6ncn5COCCOP=O)O)OP=O)O)OCCO)C=O)O))))))))))CO)C5O\n\nPlease reason step by step, and put your final answer (Yes or No) within \\boxed{}.\n\nExa",
+      "answer_tail": "ed to a carbon (as indicated by the continuing chain), this is consistent with an ester group. Even if it’s part of a larger molecule (like a nucleotide or prodrug), the ester functional group is present.\n\n---\n\n**Conclusion:** Yes, there is an ester group in this molecule.\n\nThe answer is \\boxed{Yes}",
+      "ground_truth": false,
+      "parsed": true,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B5:0:binary:randomized_smiles",
+      "task": 5,
+      "subtask": "binary",
+      "representation": "randomized_smiles",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "Do the following two molecular representations refer to the same molecule?\nMolecule 1: OC(C(C)=O)C(O)C(=O)COP(O)(=O)O\nMolecule 2: C(OP(O)(O)=O)C(C(O)C(C(C)=O)O)=O\n\nPlease reason step by step, and put ",
+      "answer_tail": "reversed, C4 (from phosphate) has acetyl and C5 has OH; in Molecule 2, C4 has both OH and acetyl. Different connectivity: in M1, acetyl and OH are on different carbons at the end; in M2, they are on the same carbon. So not the same molecule.\n\n---\n\nFinal: **No**, they are different.\n\n\\[\n\\boxed{No}\n\\]",
+      "ground_truth": true,
+      "parsed": false,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B9:0:binary:canonical_smiles",
+      "task": 9,
+      "subtask": "binary",
+      "representation": "canonical_smiles",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "Are the following two molecules tautomeric forms of the same compound?\nMolecule 1: C=C(C)C1C=CC(C)C(=O)C1\nMolecule 2: C=C(C)C1C=C(O)C(C)=CC1\n\nPlease reason step by step, and put your final answer (Yes",
+      "answer_tail": "OH at C3.\n\nThus, connectivity differs; they are not tautomers—they are constitutional isomers but not tautomers (different positions of functional groups, different saturation pattern).\n\n---\n\n**Step 8 – Conclusion**  \nThey are not tautomeric forms of the same compound.\n\n---\n\nThe answer is \\boxed{No}",
+      "ground_truth": true,
+      "parsed": false,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B10:0:binary:iupac",
+      "task": 10,
+      "subtask": "binary",
+      "representation": "iupac",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "Are the following two molecules different protonation states of the same compound?\nMolecule 1: 3-[5-(azaniumylmethyl)-4-(carboxylatomethyl)-1H-pyrrol-3-yl]propanoate\nMolecule 2: 3-[5-(azaniumylmethyl)",
+      "answer_tail": "re not different protonation states; they are just the same molecule.\n\n**Step 4 – Conclusion**  \nSince both molecules are identical, they are not different protonation states of the same compound. The question asks if they are different protonation states—the answer is No.\n\nThe answer is \\boxed{No}.",
+      "ground_truth": true,
+      "parsed": false,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "答案错误",
+      "id": "B3:439741:logp:canonical_smiles",
+      "task": 3,
+      "subtask": "logp",
+      "representation": "canonical_smiles",
+      "why": "模型给出了可解析的答案，但与标准答案不一致",
+      "prompt_head": "Estimate the LogP (partition coefficient) of the following molecule.\nMolecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O\n\nPlease reason step by step, and put your final answer (a numb",
+      "answer_tail": "extra carboxylic acid — probably similar or slightly less negative. NAD⁺ has LogP around −4 to −5.\n\nGiven it’s a dinucleotide-like with two phosphates and a carboxylate, I’d estimate around −4 to −5. Let’s settle on −4.5 as a reasonable middle estimate.\n\n**Final answer**:\n\nThe answer is \\boxed{-4.5}",
+      "ground_truth": -2.276199999999999,
+      "parsed": -4.5,
+      "correct": false,
+      "counted_as": "记为错误（计入分母）"
+    },
+    {
+      "kind": "生成结果无法解码",
+      "id": "B6:5354212:generation:deepsmiles",
+      "task": 6,
+      "subtask": "generation",
+      "representation": "deepsmiles",
+      "why": "decode_status=invalid",
+      "prompt_head": "Given a description of a molecule, generate the corresponding DeepSMILES string.\n\nIMPORTANT: Don't restate the full description - get straight to generating the molecule. Keep any reasoning brief and ",
+      "answer_tail": "{\"molecule\": \"COC(=O)C=C1CCC2C3CCC4=CC(=O)CCC4(C)C3C(=O)CC12C\"}",
+      "ground_truth": "COC(=O)/C=C1/CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3C(=O)C[C@]12C",
+      "parsed": "COC(=O)C=C1CCC2C3CCC4=CC(=O)CCC4(C)C3C(=O)CC12C",
+      "correct": 0,
+      "counted_as": "validity=0，计入分母"
+    }
+  ],
+  "coverage": {
+    "B1:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B1:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B1:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B1:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B2:canonical_smiles": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:cml": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:deepsmiles": {
+      "n": 10,
+      "scored": 10,
+      "correct": 8
+    },
+    "B2:inchi": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:isomeric_smiles": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:iupac": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:moljson": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:randomized_smiles": {
+      "n": 10,
+      "scored": 10,
+      "correct": 9
+    },
+    "B2:selfies": {
+      "n": 10,
+      "scored": 10,
+      "correct": 7
+    },
+    "B3:canonical_smiles": {
+      "n": 8,
+      "scored": 8,
+      "correct": 1
+    },
+    "B3:cml": {
+      "n": 8,
+      "scored": 8,
+      "correct": 1
+    },
+    "B3:deepsmiles": {
+      "n": 8,
+      "scored": 8,
+      "correct": 0
+    },
+    "B3:inchi": {
+      "n": 8,
+      "scored": 8,
+      "correct": 2
+    },
+    "B3:isomeric_smiles": {
+      "n": 8,
+      "scored": 8,
+      "correct": 1
+    },
+    "B3:iupac": {
+      "n": 8,
+      "scored": 8,
+      "correct": 2
+    },
+    "B3:moljson": {
+      "n": 8,
+      "scored": 8,
+      "correct": 1
+    },
+    "B3:randomized_smiles": {
+      "n": 8,
+      "scored": 8,
+      "correct": 1
+    },
+    "B3:selfies": {
+      "n": 8,
+      "scored": 8,
+      "correct": 0
+    },
+    "B4:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B4:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B5:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B5:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B5:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B5:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B6:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B6:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B6:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B6:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B9:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B9:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B9:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 1
+    },
+    "B9:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:canonical_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:cml": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:deepsmiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:inchi": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:isomeric_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:iupac": {
+      "n": 2,
+      "scored": 2,
+      "correct": 0
+    },
+    "B10:moljson": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:randomized_smiles": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    },
+    "B10:selfies": {
+      "n": 2,
+      "scored": 2,
+      "correct": 2
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "scope": "offline label sensitivity, no LLM, no network",
+  "disputed_pairs": [
+    34,
+    62,
+    102,
+    115
+  ],
+  "configs": {
+    "default": {
+      "labels_disagree_current_rdkit": 4,
+      "disputed_pairs_still_disagree": [
+        34,
+        62,
+        102,
+        115
+      ]
+    },
+    "max_tautomers_10000_full_panel": {
+      "labels_disagree_current_rdkit": 4,
+      "disputed_pairs_still_disagree": [
+        34,
+        62,
+        102,
+        115
+      ]
+    },
+    "both_100000_targeted": {
+      "status": "attempted_but_prohibitively_slow",
+      "note": "permissive enumeration on these complex molecules did not finish in practical time; not decision-relevant because the 10000-limit full-panel result already rules out low enumeration limits as the cause"
+    }
+  },
+  "conclusion": "The 4 disputed B9 labels are robust: they disagree with current RDKit default AND 10000-tautomer enumeration. The disagreement is therefore not an artifact of enumeration limits; cause requires author clarification (version/standardization difference). Public labels kept unchanged.",
+  "disputed_pair_details": [
+    {
+      "pair_index": 34,
+      "pair_type": "positive_keto_enol",
+      "released_label": "Yes",
+      "smiles_1": "C=CC1=C(C)C(=O)N=C1Cc1[nH]c(C=c2[nH]c(=Cc3[nH]c(O)c(C=C)c3C)c(C)c2CCC(=O)O)c(C=CC(=O)O)c1C.Cl",
+      "smiles_2": "C=Cc1c(O)[nH]c(C=c2[nH]c(=CC3=NC(=Cc4[nH]c(O)c(C)c4C=C)C(C)=C3C=CC(=O)O)c(CCC(=O)O)c2C)c1C.Cl",
+      "iupac_1": "3-[(2Z,5Z)-2-[[3-(2-carboxyethyl)-5-[(Z)-(3-ethenyl-4-methyl-5-oxopyrrol-2-ylidene)methyl]-4-methyl-1H-pyrrol-2-yl]methylidene]-5-[(4-ethenyl-3-methyl-5-oxopyrrol-2-yl)methylidene]-4-methylpyrrol-3-yl]propanoic acid;hydrochloride",
+      "iupac_2": "3-[(2Z,5Z)-2-[[3-(2-carboxyethyl)-5-[(Z)-(3-ethenyl-4-methyl-5-oxopyrrol-2-ylidene)methyl]-4-methyl-1H-pyrrol-2-yl]methylidene]-5-[(4-ethenyl-3-methyl-5-oxopyrrol-2-yl)methylidene]-4-methylpyrrol-3-yl]propanoic acid;hydrochloride"
+    },
+    {
+      "pair_index": 62,
+      "pair_type": "positive_keto_enol",
+      "released_label": "Yes",
+      "smiles_1": "CC1c2cccc(O)c2C(=O)C2C(=O)[C@]3(O)C(=O)C(C(N)=O)C(=O)C(N(C)C)[C@@H]3[C@@H](O)[C@@H]21.CC1c2cccc(O)c2C(O)=C2C(=O)[C@]3(O)C(O)=C(C(N)=O)C(O)=C(N(C)C)[C@@H]3[C@@H](O)[C@@H]21.CCO.Cl.Cl.O",
+      "smiles_2": "CC1=C2C=CCC(=O)C2C(=O)C2C(=O)[C@]3(O)C(O)=C(C(N)=O)C(=O)C(N(C)C)[C@@H]3[C@@H](O)[C@H]12.CC1c2cccc(O)c2C(O)=C2C(=O)[C@]3(O)C(O)=C(C(N)=O)C(=O)C(N(C)C)[C@@H]3[C@@H](O)[C@@H]21.CCO.Cl.Cl.O",
+      "iupac_1": "[(1S,4aR,11R,11aR,12S,12aR)-3-carbamoyl-4,4a,6,7,12-pentahydroxy-11-methyl-2,5-dioxo-11,11a,12,12a-tetrahydro-1H-tetracen-1-yl]-dimethylazanium;ethanol;dichloride;hydrate",
+      "iupac_2": "[(1S,4aR,11R,11aR,12S,12aR)-3-carbamoyl-4,4a,6,7,12-pentahydroxy-11-methyl-2,5-dioxo-11,11a,12,12a-tetrahydro-1H-tetracen-1-yl]-dimethylazanium;ethanol;dichloride;hydrate"
+    },
+    {
+      "pair_index": 102,
+      "pair_type": "positive_keto_enol",
+      "released_label": "Yes",
+      "smiles_1": "Cc1cc(O)cc(O)c1-c1c(O)cc2oc3cc(=O)c(-c4c(C)cc(O)cc4O)c(C)c-3nc2c1C",
+      "smiles_2": "C=C1C=C(O)CC(O)=C1c1c(O)cc2oc3cc(=O)c(C4=C(O)CC(=O)C=C4C)c(C)c-3nc2c1C",
+      "iupac_1": "2,8-bis(2,4-dihydroxy-6-methylphenyl)-7-hydroxy-1,9-dimethylphenoxazin-3-one",
+      "iupac_2": "2,8-bis(2,4-dihydroxy-6-methylphenyl)-7-hydroxy-1,9-dimethylphenoxazin-3-one"
+    },
+    {
+      "pair_index": 115,
+      "pair_type": "positive_keto_enol",
+      "released_label": "Yes",
+      "smiles_1": "CSCCC(N=C(O)[C@H](C)N=C(O)[C@@H]1CCCN1C(=O)C(CC(=N)O)N=C(O)[C@H](CO)N=C(O)[C@H](CC(=N)O)N=C(O)[C@H](C)N=C(O)C(N)CO)C(=O)NC(C)C(=O)N1CCCC1C(=O)N[C@@H](CCCNC(=N)N)C(O)=N[C@@H](CCC(=O)O)C(O)=N[C@@H](CCCNC(=N)N)C(O)=N[C@@H](CCCCN)C(O)=N[C@@H](C)C(O)=NCC(O)=NC1CSSCC(C(=O)O)N=C(O)C(CO)N=C(O)C([C@@H](C)O)N=C(O)C(Cc2ccccc2)N=C(O)C([C@@H](C)O)N=C(O)C(CCCCN)N=C(O)C(Cc2c[nH]c3ccccc23)N=C(O)C(Cc2ccccc2)N=C(O)C(Cc2ccccc2)N=C(O)C(CC(=N)O)N=C(O)C(CCCCN)N=C1O",
+      "smiles_2": "CSCCC(N=C(O)[C@H](C)N=C(O)[C@@H]1CCCN1C(=O)C(CC(=N)O)N=C(O)[C@H](CO)N=C(O)[C@H](CC(=N)O)N=C(O)[C@H](C)NC(O)C(=N)CO)C(O)=NC(C)C(=O)N1CCCC1C(O)=N[C@@H](CCCNC(=N)N)C(O)=N[C@@H](CCC(=O)O)C(O)=N[C@@H](CCCNC(=N)N)C(O)=N[C@@H](CCCCN)C(O)=N[C@@H](C)C(O)=NCC(O)=NC1CSSCC(C(=O)O)NC(=O)C(CO)N=C(O)C([C@@H](C)O)N=C(O)C(Cc2ccccc2)N=C(O)C([C@@H](C)O)N=C(O)C(CCCCN)N=C(O)C(Cc2c[nH]c3ccccc23)N=C(O)C(Cc2ccccc2)N=C(O)C(Cc2ccccc2)N=C(O)C(CC(=N)O)NC(=O)C(CCCCN)N=C1O",
+      "iupac_1": "(4R,7S,10S,13S,16S,19S,22S,25S,28S,31S,34S,37R)-37-[[2-[[(2S)-2-[[(2S)-6-amino-2-[[(2S)-2-[[(2S)-2-[[(2S)-2-[[(2S)-1-[(2S)-2-[[(2S)-2-[[(2S)-2-[[(2S)-1-[(2S)-4-amino-2-[[(2S)-2-[[(2S)-4-amino-2-[[(2S)-2-[[(2S)-2-amino-3-hydroxypropanoyl]amino]propanoyl]amino]-4-oxobutanoyl]amino]-3-hydroxypropanoyl]amino]-4-oxobutanoyl]pyrrolidine-2-carbonyl]amino]propanoyl]amino]-4-methylsulfanylbutanoyl]amino]propanoyl]pyrrolidine-2-carbonyl]amino]-5-(diaminomethylideneamino)pentanoyl]amino]-4-carboxybutanoyl]amino]-5-(diaminomethylideneamino)pentanoyl]amino]hexanoyl]amino]propanoyl]amino]acetyl]amino]-19,34-bis(4-aminobutyl)-31-(2-amino-2-oxoethyl)-13,25,28-tribenzyl-10,16-bis[(1R)-1-hydroxyethyl]-7-(hydroxymethyl)-22-(1H-indol-3-ylmethyl)-6,9,12,15,18,21,24,27,30,33,36-undecaoxo-1,2-dithia-5,8,11,14,17,20,23,26,29,32,35-undecazacyclooctatriacontane-4-carboxylic acid",
+      "iupac_2": "(4R,7S,10S,13S,16S,19S,22S,25S,28S,31S,34S,37R)-37-[[2-[[(2S)-2-[[(2S)-6-amino-2-[[(2S)-2-[[(2S)-2-[[(2S)-2-[[(2S)-1-[(2S)-2-[[(2S)-2-[[(2S)-2-[[(2S)-1-[(2S)-4-amino-2-[[(2S)-2-[[(2S)-4-amino-2-[[(2S)-2-[[(2S)-2-amino-3-hydroxypropanoyl]amino]propanoyl]amino]-4-oxobutanoyl]amino]-3-hydroxypropanoyl]amino]-4-oxobutanoyl]pyrrolidine-2-carbonyl]amino]propanoyl]amino]-4-methylsulfanylbutanoyl]amino]propanoyl]pyrrolidine-2-carbonyl]amino]-5-(diaminomethylideneamino)pentanoyl]amino]-4-carboxybutanoyl]amino]-5-(diaminomethylideneamino)pentanoyl]amino]hexanoyl]amino]propanoyl]amino]acetyl]amino]-19,34-bis(4-aminobutyl)-31-(2-amino-2-oxoethyl)-13,25,28-tribenzyl-10,16-bis[(1R)-1-hydroxyethyl]-7-(hydroxymethyl)-22-(1H-indol-3-ylmethyl)-6,9,12,15,18,21,24,27,30,33,36-undecaoxo-1,2-dithia-5,8,11,14,17,20,23,26,29,32,35-undecazacyclooctatriacontane-4-carboxylic acid"
+    }
+  ]
+}

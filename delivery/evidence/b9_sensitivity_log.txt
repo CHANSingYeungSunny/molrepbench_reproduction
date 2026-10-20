@@ -1,0 +1,2 @@
+default: disagreements=4/250, disputed pairs still disagree: [34, 62, 102, 115]
+max_tautomers_10000: disagreements=4/250, disputed pairs still disagree: [34, 62, 102, 115]

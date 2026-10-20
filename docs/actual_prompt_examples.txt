@@ -1,0 +1,137 @@
+=== B1 B1:439741:C:canonical_smiles ===
+PROMPT
+How many C atoms are in the following molecule?
+Molecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O
+
+Please reason step by step, and put your final answer within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{42}
+
+REFERENCE ANSWER (not sent to model)
+13
+
+MODEL RESPONSE
+Not run
+
+
+=== B2 B2:439741:primary_amine:canonical_smiles ===
+PROMPT
+Does the following molecule contain a Primary amine?
+Molecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O
+
+Please reason step by step, and put your final answer (Yes or No) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{Yes} or \boxed{No}
+
+REFERENCE ANSWER (not sent to model)
+True
+
+MODEL RESPONSE
+Not run
+
+
+=== B3 B3:439741:logp:canonical_smiles ===
+PROMPT
+Estimate the LogP (partition coefficient) of the following molecule.
+Molecule: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O
+
+Please reason step by step, and put your final answer (a number) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{3.5}
+
+REFERENCE ANSWER (not sent to model)
+-2.276199999999999
+
+MODEL RESPONSE
+Not run
+
+
+=== B4 B4:439741:choice:canonical_smiles ===
+PROMPT
+Which of the following molecules matches this description?
+Description: The molecule is a nucleotide-aldonic acid, a monophosphoglyceric acid and a tetronic acid derivative. It is a conjugate acid of a 3-ADP-glycerate(3-).
+A: Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OCC(O)C(=O)O)C(O)C1O
+B: Nc1nc(O)nc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O
+C: COc1cccc2[nH]cc(CC(=NOS(=O)(=O)[O-])SC3OC(CO)C(O)C(O)C3O)c12
+D: CCC(C)CCC=C(C)C(O)=NC1=CC(O)(C=CC=CC=CC(O)=NC2=C(O)CCC2=O)C(O)CC1=O
+
+Please reason step by step, and put your final answer (only the choice letter) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{A}
+
+REFERENCE ANSWER (not sent to model)
+A
+
+MODEL RESPONSE
+Not run
+
+
+=== B5 B5:0:binary:canonical_smiles ===
+PROMPT
+Do the following two molecular representations refer to the same molecule?
+Molecule 1: CC(=O)C(O)C(O)C(=O)COP(=O)(O)O
+Molecule 2: CC(=O)C(O)C(O)C(=O)COP(=O)(O)O
+
+Please reason step by step, and put your final answer (Yes or No) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{Yes} or \boxed{No}
+
+REFERENCE ANSWER (not sent to model)
+True
+
+MODEL RESPONSE
+Not run
+
+
+=== B6 B6:5354212:generation:canonical_smiles ===
+PROMPT
+Given a description of a molecule, generate the corresponding Canonical SMILES string.
+
+IMPORTANT: Don't restate the full description - get straight to generating the molecule. Keep any reasoning brief and concise. Output tokens are limited, so provide your final answer as quickly as possible.
+
+Description: The molecule is a steroid ester that is methyl (17E)-pregna-4,17-dien-21-oate substituted by oxo groups at positions 3 and 11. It is a 3-oxo-Delta(4) steroid, an 11-oxo steroid, a steroid ester and a methyl ester. It derives from a hydride of a pregnane.
+
+Your final output must be a JSON object in this format:
+{"molecule": "..."}
+
+Where the value is the complete Canonical SMILES string. Keep the reasoning concise and short. Don't ramble, be decisive. As soon as possible, output the JSON object.
+
+REFERENCE ANSWER (not sent to model)
+COC(=O)/C=C1/CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3C(=O)C[C@]12C
+
+MODEL RESPONSE
+Not run
+
+
+=== B9 B9:0:binary:canonical_smiles ===
+PROMPT
+Are the following two molecules tautomeric forms of the same compound?
+Molecule 1: C=C(C)C1C=CC(C)C(=O)C1
+Molecule 2: C=C(C)C1C=C(O)C(C)=CC1
+
+Please reason step by step, and put your final answer (Yes or No) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{Yes} or \boxed{No}
+
+REFERENCE ANSWER (not sent to model)
+True
+
+MODEL RESPONSE
+Not run
+
+
+=== B10 B10:0:binary:canonical_smiles ===
+PROMPT
+Are the following two molecules different protonation states of the same compound?
+Molecule 1: NCc1[nH]cc(CCC(=O)O)c1CC(=O)O
+Molecule 2: NCc1[nH]cc(CCC(=O)[O-])c1CC(=O)O
+
+Please reason step by step, and put your final answer (Yes or No) within \boxed{}.
+
+Example format: After reasoning, conclude with: The answer is \boxed{Yes} or \boxed{No}
+
+REFERENCE ANSWER (not sent to model)
+True
+
+MODEL RESPONSE
+Not run

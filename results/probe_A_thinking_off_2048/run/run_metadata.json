@@ -1,0 +1,26 @@
+{
+  "run_signature": "8a9135bb0abddb453d7217783c6ddef9808585ce8395234049fe0b78f52e6985",
+  "settings": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "api_key_env": "LLM_API_KEY",
+    "require_api_key": true,
+    "thinking": "off",
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "max_tokens": 2048,
+    "token_parameter": "max_tokens",
+    "schema_mode": "prompt_only",
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    },
+    "timeout_seconds": 180,
+    "retries": 2
+  },
+  "manifest_path": "C:\\Users\\Asus\\Desktop\\molrepbench\\molrepbench_reproduction\\plans\\smoke",
+  "started_utc": "2026-10-20T02:35:51.997779+00:00",
+  "result_kind": "real_model_inference",
+  "protocol": "released-data-audited-v1"
+}

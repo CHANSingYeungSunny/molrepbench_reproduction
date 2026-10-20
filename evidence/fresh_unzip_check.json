@@ -1,0 +1,26 @@
+[
+  {
+    "command": "python reproduce.py verify-vendor",
+    "exit_code": 0,
+    "stdout_tail": "{\n  \"files_checked\": 32,\n  \"changed_or_missing\": []\n}\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": "python reproduce.py setup",
+    "exit_code": 0,
+    "stdout_tail": "{\n  \"extracted_files\": [\n    \"chebi20_test.csv\",\n    \"chebi_prepared_500.csv\",\n    \"comprehension_subset_ids.csv\",\n    \"fewshot_examples.csv\",\n    \"isomer_pairs.csv\",\n    \"iupac_failures.csv\",\n    \"protonation_pairs250.csv\",\n    \"retrieval_distractors.csv\",\n    \"tautomer_pairs250.csv\"\n  ]\n}\n",
+    "stderr_tail": ""
+  },
+  {
+    "command": "python reproduce.py prepare --profile smoke --out plans/unzip_validation",
+    "exit_code": 0,
+    "stdout_tail": "0\",\n    \"B6 cap 200 per supplied paper, not released config cap 250\",\n    \"B4 identical option order across representations\",\n    \"Random SMILES frozen per explicit manifest seed\",\n    \"All non-IUPAC pair inputs regenerated from member-specific SMILES\",\n    \"No blank-line stop sequence; prevent premature answer truncation\",\n    \"B9/B10 released CSV source says ChEBI-20, paper says ZINC250K\"\n  ]\n}\n",
+    "stderr_tail": "WARNING:root:STOUT not installed. Install with: pip install STOUT-pypi\n"
+  },
+  {
+    "command": "python -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "stdout_tail": "1 pending requests; 0 already successful. Output: /tmp/tmp_snb0h6x/transport_fixture\n1/1 B1:439741:C:canonical_smiles ok\n1 pending requests; 1 already successful. Output: /tmp/tmp_snb0h6x/transport_fixture\n1/1 B2:439741:primary_amine:canonical_smiles ok\n",
+    "stderr_tail": "st_retrieval_choices_paired_across_representations) ... ok\ntest_software_fixture_metrics_and_iupac_unknown (test_pipeline.PipelineTests.test_software_fixture_metrics_and_iupac_unknown) ... ERROR:root:Failed to parse MolJSON: Expecting value: line 1 column 1 (char 0)\nok\ntest_verified_iupac_excludes_unreviewed_inputs (test_pipeline.PipelineTests.test_verified_iupac_excludes_unreviewed_inputs) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 2.425s\n\nOK\n"
+  }
+]

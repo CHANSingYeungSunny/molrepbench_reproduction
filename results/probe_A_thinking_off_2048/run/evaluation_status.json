@@ -1,0 +1,10 @@
+{
+  "expected_requests": 270,
+  "api_success": 1,
+  "parsed_answers": 1,
+  "inference_complete": false,
+  "iupac_generation_decoder_complete": true,
+  "fcd_requested": false,
+  "full_paper_reproduced": false,
+  "note": "No paid inference was run by the package author. This status describes local response files only."
+}

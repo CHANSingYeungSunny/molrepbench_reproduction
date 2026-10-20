@@ -1,0 +1,20 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "dependencies": {
+    "rdkit": "2025.9.6",
+    "selfies": "2.2.0",
+    "deepsmiles": "1.0.1",
+    "openbabel-wheel": "3.1.1.23",
+    "numpy": "2.3.5",
+    "scipy": "1.16.2",
+    "pandas": "2.2.3",
+    "requests": "2.32.5",
+    "python-docx": "1.2.0",
+    "reportlab": "4.4.9"
+  },
+  "obabel_on_path": false,
+  "note": "B6 CML decoding uses isolated Python OpenBabel, so obabel executable PATH is not required.",
+  "source_repo": "https://github.com/arunraja-hub/molrepbench",
+  "source_commit": "21d36941cddf0dc1ffb5f3590296592dc68e4ac8"
+}

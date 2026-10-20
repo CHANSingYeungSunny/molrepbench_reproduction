@@ -1,0 +1,20 @@
+{
+  "base_url": "https://api.deepseek.com",
+  "model": "deepseek-flash",
+  "api_key_env": "LLM_API_KEY (value stored in .env, never in this file)",
+  "require_api_key": true,
+  "thinking": "off",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "max_tokens": 8192,
+  "token_parameter": "max_tokens",
+  "schema_mode": "prompt_only",
+  "extra_body": {
+    "thinking": {
+      "type": "disabled"
+    }
+  },
+  "timeout_seconds": 300,
+  "retries": 2,
+  "_note": "脱敏版：密钥位于项目根 .env（已 gitignore），从不写入本文件。"
+}

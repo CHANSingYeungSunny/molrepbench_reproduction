@@ -1,0 +1,31 @@
+[08:42:29] Tautomer enumeration stopped at 305 tautomers: max transforms reached
+[08:42:31] Tautomer enumeration stopped at 417 tautomers: max transforms reached
+[08:42:41] Tautomer enumeration stopped at 372 tautomers: max transforms reached
+[08:42:52] Tautomer enumeration stopped at 379 tautomers: max transforms reached
+[08:43:00] Tautomer enumeration stopped at 806 tautomers: max transforms reached
+[08:43:04] Tautomer enumeration stopped at 1000 tautomers: max tautomers reached
+[08:43:09] Tautomer enumeration stopped at 487 tautomers: max transforms reached
+[08:43:12] Tautomer enumeration stopped at 485 tautomers: max transforms reached
+[08:43:19] Tautomer enumeration stopped at 558 tautomers: max transforms reached
+[08:43:21] Tautomer enumeration stopped at 944 tautomers: max transforms reached
+[08:43:29] Tautomer enumeration stopped at 1000 tautomers: max tautomers reached
+[08:43:35] Tautomer enumeration stopped at 1000 tautomers: max tautomers reached
+[08:43:37] Tautomer enumeration stopped at 208 tautomers: max transforms reached
+[08:43:37] Tautomer enumeration stopped at 210 tautomers: max transforms reached
+[08:43:42] Tautomer enumeration stopped at 1000 tautomers: max tautomers reached
+[08:43:52] Tautomer enumeration stopped at 1000 tautomers: max tautomers reached
+[08:43:54] Can't kekulize mol.  Unkekulized atoms: 23 27
+[08:43:55] Can't kekulize mol.  Unkekulized atoms: 23 27
+[08:43:56] Tautomer enumeration stopped at 179 tautomers: max transforms reached
+[08:43:59] Tautomer enumeration stopped at 206 tautomers: max transforms reached
+[08:44:02] Tautomer enumeration stopped at 170 tautomers: max transforms reached
+[08:44:04] Tautomer enumeration stopped at 256 tautomers: max transforms reached
+[08:44:05] Tautomer enumeration stopped at 333 tautomers: max transforms reached
+[08:44:09] Tautomer enumeration stopped at 750 tautomers: max transforms reached
+[08:44:20] Tautomer enumeration stopped at 345 tautomers: max transforms reached
+[08:44:25] Tautomer enumeration stopped at 200 tautomers: max transforms reached
+[08:44:31] Tautomer enumeration stopped at 473 tautomers: max transforms reached
+[08:44:34] Tautomer enumeration stopped at 482 tautomers: max transforms reached
+[08:44:36] Tautomer enumeration stopped at 263 tautomers: max transforms reached
+[08:44:38] Tautomer enumeration stopped at 259 tautomers: max transforms reached
+WARNING:root:STOUT not installed. Install with: pip install STOUT-pypi

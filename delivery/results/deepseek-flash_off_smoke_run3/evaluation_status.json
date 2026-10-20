@@ -1,0 +1,11 @@
+{
+  "expected_requests": 270,
+  "api_success": 270,
+  "parsed_answers": 269,
+  "inference_complete": true,
+  "iupac_generation_decoder_complete": true,
+  "fcd_requested": false,
+  "full_paper_reproduced": false,
+  "result_kind": "real_model_inference",
+  "note": "This status describes only the response files in this run directory. Whether they came from paid inference, an imported export or a fixture is recorded in run_metadata.json result_kind and must be checked before reporting."
+}

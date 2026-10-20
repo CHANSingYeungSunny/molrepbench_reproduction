@@ -1,0 +1,25 @@
+1 pending requests; 0 already successful. Output: /tmp/tmplpepu144/transport_fixture
+1/1 B1:439741:C:canonical_smiles ok
+1 pending requests; 1 already successful. Output: /tmp/tmplpepu144/transport_fixture
+1/1 B2:439741:primary_amine:canonical_smiles ok
+
+WARNING:root:STOUT not installed. Install with: pip install STOUT-pypi
+test_b5_csv_matches_exact_identity_for_all_pairs (test_pipeline.PipelineTests.test_b5_csv_matches_exact_identity_for_all_pairs) ... ok
+test_eight_local_representations_roundtrip (test_pipeline.PipelineTests.test_eight_local_representations_roundtrip) ... ok
+test_every_task_every_representation (test_pipeline.PipelineTests.test_every_task_every_representation) ... ok
+test_ground_truth_not_in_request_fields (test_pipeline.PipelineTests.test_ground_truth_not_in_request_fields) ... ok
+test_missing_requests_not_dropped_from_denominator (test_pipeline.PipelineTests.test_missing_requests_not_dropped_from_denominator) ... ok
+test_parser_does_not_take_reasoning_numbers (test_pipeline.PipelineTests.test_parser_does_not_take_reasoning_numbers) ... ok
+test_repeatable_prompts (test_pipeline.PipelineTests.test_repeatable_prompts) ... ok
+test_resume_and_changed_config_guard (test_pipeline.PipelineTests.test_resume_and_changed_config_guard) ... ok
+test_retrieval_choices_paired_across_representations (test_pipeline.PipelineTests.test_retrieval_choices_paired_across_representations) ... ok
+test_software_fixture_metrics_and_iupac_unknown (test_pipeline.PipelineTests.test_software_fixture_metrics_and_iupac_unknown) ... ERROR:root:Failed to parse MolJSON: Expecting value: line 1 column 1 (char 0)
+ok
+test_verified_iupac_excludes_unreviewed_inputs (test_pipeline.PipelineTests.test_verified_iupac_excludes_unreviewed_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.298s
+
+OK
+
+EXIT_CODE=0

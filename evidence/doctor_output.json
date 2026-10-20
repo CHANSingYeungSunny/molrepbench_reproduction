@@ -1,0 +1,22 @@
+{
+  "python": "3.12.15",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "dependencies": {
+    "rdkit": "2025.9.6",
+    "selfies": "2.2.0",
+    "deepsmiles": "1.0.1",
+    "openbabel-wheel": "MISSING",
+    "openbabel": "MISSING",
+    "numpy": "2.3.5",
+    "scipy": "1.16.2",
+    "pandas": "2.2.3",
+    "requests": "2.32.5",
+    "python-docx": "1.2.0",
+    "reportlab": "4.4.9"
+  },
+  "obabel_executable": "C:\\Users\\Asus\\miniconda3\\envs\\molrep\\Library\\bin\\obabel.exe",
+  "obabel_on_path": true,
+  "note": "CML encode/decode uses the OpenBabel CLI (obabel). Windows openbabel-wheel lacks the cml format and the conda-forge Python binding fails to load formats_common/formats_xml plugins in-process, so the author-style CLI path is used; real CML only, never SMILES-as-CML.",
+  "source_repo": "https://github.com/arunraja-hub/molrepbench",
+  "source_commit": "21d36941cddf0dc1ffb5f3590296592dc68e4ac8"
+}

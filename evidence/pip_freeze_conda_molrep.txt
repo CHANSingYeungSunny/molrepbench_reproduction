@@ -1,0 +1,35 @@
+﻿certifi==2026.10.18
+charset-normalizer @ file:///D:/bld/bld/rattler-build_charset-normalizer_1790766070/work
+contourpy @ file:///D:/bld/bld/rattler-build_contourpy_1789746819/work
+cycler @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_cycler_1764466758/work
+deepsmiles==1.0.1
+fonttools @ file:///D:/bld/fonttools_1791995196719/work
+freetype-py @ file:///home/conda/feedstock_root/build_artifacts/freetype-py_1650983368720/work
+idna==3.20
+kiwisolver @ file:///D:/bld/bld/rattler-build_kiwisolver_1790081990/work
+lxml==6.1.3
+matplotlib==3.11.2
+munkres==1.1.4
+numpy==2.3.5
+packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work
+pandas==2.2.3
+pillow @ file:///D:/bld/bld/rattler-build_pillow_1792416420/work
+pycairo==1.29.2
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_pyparsing_1790063282/work
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_python-dateutil_1751104122/work
+python-docx==1.2.0
+pytz==2026.5
+rdkit @ file:///D:/bld/rdkit-meta_1773043517231/work
+reportlab==4.4.9
+requests==2.32.5
+rlPyCairo @ file:///home/conda/feedstock_root/build_artifacts/rlpycairo_1756864152814/work
+scipy==1.16.2
+selfies==2.2.0
+setuptools==84.1.0
+six @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_six_1753199211/work
+SQLAlchemy @ file:///D:/bld/bld/rattler-build_sqlalchemy_1792225845/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_typing_extensions_1783002732/work
+tzdata @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_python-tzdata_1791025923/work
+unicodedata2 @ file:///D:/bld/unicodedata2_1789928033425/work
+urllib3==2.8.0
+wheel==0.48.0

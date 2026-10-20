@@ -1,0 +1,6 @@
+{
+  "fixture_type": "No LLM responses; incomplete-state rendering check",
+  "report_marked_incomplete": true,
+  "docx_created": true,
+  "pdf_created": true
+}

@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.pyc
+settings.json
+.env
+data/
+
+# 作者原始代码与数据：该 commit 未包含 LICENSE，不做再分发。
+# 校验方式见 UPSTREAM_PROVENANCE.json（32 个文件 SHA256）与 THIRD_PARTY_NOTICES.md
+vendor/
+
+# 论文原文 PDF 属第三方材料，仓库只提供链接
+docs/original_paper.pdf
+
+# plans/：只公开 smoke 的 270 条 manifest（可直接复现）；
+# paper 与 paper_verified 的 manifest 各约 60 MB，用 prepare 命令可一键重建。
+plans/*
+!plans/smoke/
+plans/*/manifest.jsonl
+!plans/smoke/manifest.jsonl
+delivery/plans/paper/manifest.jsonl
+delivery/plans/paper_verified/manifest.jsonl
+
+# 可重建的缓存不入库（audit --iupac 可重新生成）
+results/opsin_cache.json
+
+# 交付包本体，内容与 delivery/ 重复，避免重复占用体积
+molrepbench_reproduction_delivery.zip

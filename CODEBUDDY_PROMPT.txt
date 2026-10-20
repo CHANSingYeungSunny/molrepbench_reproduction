@@ -1,0 +1,36 @@
+你正在帮助我复现论文 Rethinking Molecular Text Representations for LLMs An Empirical Study。请在本解压项目中实际操作，不只给建议。我零基础，需要理解核心代码、实际 prompt、运行过程和结果，并向教授解释为什么选这些表示和任务。
+
+先读 README.md、UPSTREAM_PROVENANCE.json、docs/ 说明文档、evidence/dataset_audit.json，再阅读 repro/ 与 vendor/molrepbench/ 的核心代码。不要以我过去的自定义五任务实验、Graph2D/Graph3D 或 Our Code 替代本论文。范围是 9 种文本表示与 B1 B2 B3 B4 B5 B6 B9 B10 这 8 类任务。先输出一个简短执行清单，随后实际执行。
+
+一 先完成不需要模型的工作
+1 在当地创建 Python 3.12 64 位 .venv，安装 requirements.txt，不污染其他项目。Windows 用 .venv\Scripts\python.exe，Mac/Linux 用 .venv/bin/python。若 openbabel-wheel 无可用版本，诊断平台并使用 conda-forge OpenBabel，不能跳过 CML 或用 SMILES 假充 CML。
+2 运行 doctor、verify-vendor、setup、python -m unittest discover -s tests -v；保存完整日志与 pip freeze。vendor 是固定 commit 的原始代码，请勿直接修改它；必要的适配放在 repro/ 或单独补丁里。
+3 运行 prepare --profile smoke --out plans/smoke，检查所有 8 类任务都覆盖全部 9 种表示，预期 270 条。运行 prepare --profile paper --out plans/paper，查看 plan.json 与 excluded.jsonl；此交付环境公开名称路线为 29139 条，缺 3 个 IUPAC 输入对。不同依赖版本变化必须说明，不能硬凑数。
+4 重新运行离线 audit 并保存 RDKit 枚举警告。B5 CSV 的 ground_truth 是“同分子”答案，250 positive 为 Yes，125 stereoisomer 与 125 substitution 为 No。原始 runner/evaluator 的 natural/stereoisomer 标签规则与 CSV 在 375/500 对上不一致，不能恢复此错误。B9/B10 公开 source 字段为 ChEBI-20，论文称 ZINC250K；不可把它写成已确认相同数据。B9 4 对标签在当前 RDKit 默认枚举规则下有争议；保留公开标签并做单独敏感性检查，不悄悄改答案。
+5 B9/B10 预存 SELFIES 的成员匹配有问题，当前运行器已从每个成员实际 smiles 重新生成非 IUPAC 表示。核实没有退回预存错误列。IUPAC 名称须另行处理。
+
+二 先核实真实模型条件再调用
+6 检查我已有的 Python/GPU/本地服务/环境变量配置，不要读取或回显密钥内容，不要把密钥写进文件或 Git。如果已有可用配置直接使用；只有缺少模型地址、模型名称或可承受预算等必要信息时，集中问我一次。
+7 不要自行下载全部 16 个大模型，不要自行创建付费账户或发起大规模收费实验。先使用我已有且授权的一个模型配置。确认 model 的精确 HF ID/revision 或 API 版本、是否量化、服务版本、真实推理模式、上下文、采样参数、结构化输出支持。查 vendor/scripts/config.py 的论文设置作对照，不能仅凭名字相近就声称用的是同一模型。任何替换都标为 partial reproduction。
+8 settings.example.json 默认是 vLLM 风格的例子，需复制为 settings.json 后填真实信息。thinking 标签本身不控制推理，必须核实实际 chat_template_kwargs / reasoning 参数。HTTP JSON 扩展参数在顶层，不能嵌套 extra_body。不同 API 的 max_tokens/max_completion_tokens、采样参数和 schema 能力要实际验证，不盲目套用。不能关闭推理的模型请写明不支持 off。
+9 先 run --plan plans/smoke --settings settings.json --out results/实际模型_条件_smoke --max-requests 1。检查真实 raw_response、usage、finish_reason，确认不是 fixture。随后完成 smoke 全 270 请求。关注输出截断、无最终答案、JSON schema 错误、CML/MolJSON token 长度；不要遇到问题就静默改模型、去掉难表示或丢弃失败项。每次改设置换新结果目录。
+
+三 IUPAC 审核与正式实验
+10 在科学比较前运行 audit --iupac，使用 OPSIN 审核公开名称是否确实表示每个分子对成员，保留 iupac_input_audit.json、解析缓存与失败记录。这是名称解析网络请求，不是 LLM 推理。IUPAC 共享名称可能折叠互变异构体/质子化态；需区分表示信息丢失、错误名称映射与 LLM 能力。不能把 SMILES 直接填入 iupac 列。
+11 prepare --profile paper --iupac-policy verified --out plans/paper_verified。这条路线仅保留 OPSIN 与成员 SMILES 立体身份完全一致的 IUPAC 输入，样本可能减少。主报告同时列公开数据路线与已审核路线的范围和分母；如只够预算运行一条，优先已审核路线，并说明与论文和发布数据不同。对表示进行科学比较时使用共同问题 ID。缺失名称可以尝试权威来源修复，但必须新增映射来源、验证与独立协议版本，不覆盖原始材料。
+12 展示正式任务数、计划调用数和基于 smoke 实际 usage 的 token 估计。使用我已指定或进一步确认的预算执行。先完整覆盖一个模型的九种表示八类任务，再根据教授范围扩展论文模型；不要为节省时间只跑 SMILES。完整 16 模型路线远大于一个 smoke，不能默认全跑。每种模式/重复实验独立目录，固定同一个 manifest 后配对比较。run 支持断点续跑，请继续完成，不要每次从头收费重跑。
+13 对真实结果 score --allow-network；如要求论文完整 B6 指标，安装可选 fcd、准备 ChemNet 权重并 score --fcd。没有 FCD 要标未完成，不用其他距离冒充。连续性质主指标为 Spearman；不要把 QED 加入原论文 B3。HBD/HBA 用整数准确率。生成同时看 validity、结构 exact match、Morgan/MACCS/RDKit Tanimoto、FCD；有效并不代表符合描述。
+14 运行 bootstrap --samples 10000，保留共同样本数、覆盖率、CI 和方法说明。当前实现在预指定 canonical_smiles 参考下按分子配对 bootstrap，B2 五标签成组；与论文选择最高均值后做比较的细节不同。如要完全对齐原表，先审读 vendor/scripts/tabulate_results.py 并记录差异，不对不同样本集合的聚合均值直接做配对检验。不要把缺失、解析失败、API 出错删掉后当作完整成功。
+
+四 论文其余部分必须如实区分
+15 若要求原论文裁判图，审读 vendor/scripts/qualitative_eval.py，核实原 Gemini 3 Flash、10 captions/模型/表示、rubric、分母与错误分类。reproduce.py judge 是可选改编的 rubric，不能声称与论文原裁判逐字一致。裁判结果需人工抽查，不等于化学真值。
+16 对 §6 tokenizer 审计可先用 tools/token_audit.py；它不是论文全部机制图的现成复现。32 个公开文件未找到完整线性探针/注意力重放流程。如果教授要求全文所有实验，请核对论文 §6 与附录 H/I 的模型、1000/50 分子样本、输入模板、层、token span、池化、训练/测试划分和注意力归一化；能从论文确定的才独立实现，不能猜成作者原代码。无法确定的列为待作者澄清。重新实现必须标 supplemental reimplementation，不能伪造机制图或声称已经跑过 GPU。
+
+五 最终向我交付
+17 运行 report --run results/实际目录 --out reports/实际目录，基于实际 raw/summary/status 生成 DOCX 与 PDF，再人工完善并渲染检查。内容用零基础中文解释，保留必要英文术语。
+18 报告必须包括：复现目标与范围；论文/官方代码来源和固定 commit；环境/数据/样本 ID 与排除项；九种表示各自编码什么、能否保留立体/电荷/互变形式及为何选择；八类任务各自测什么、为何能区分表示、为什么用对应指标；核心代码文件与一小段实际源码；每类任务至少一个实际 prompt、参考答案、模型原始回答和评分解释；所有已跑任务×表示成绩、覆盖率和共同样本比较；至少 3 个真实失败案例；与论文一致和不一致之处及成因待验证；本次完成/未完成/替代实现边界；可复制运行命令和证据索引。
+19 讲清楚：同一个分子有多种“写法”，实验改变表示、固定题目与模型，观察回答是否改变；不等于训练新的分子模型。RDKit 是算标准答案/转换格式的工具，LLM 是被测试对象。不能把 RDKit 直接算出的答案冒充 LLM 推理。SELFIES 合法不代表答案正确，MolJSON/CML 显式列图但可能更长或丢失立体信息，IUPAC 有语义线索但也会标准化掉状态。结果没有支持就不要写哪种表示最好。
+20 给我一个能用于向教授口述的 2-3 分钟中文版本，并列出教授可能追问的具体问题和基于本次证据的回答。运行成功后可用第一人称“我复现了……”；在运行前只能写“准备/实现/验证了流程”，不能预写成功经历。
+21 最后打包当地最终源码、README、必要公开数据来源、实际配置的脱敏版、日志、原始回答、逐题评分、汇总表、DOCX、PDF；明确哪些是作者代码、哪些是本次修正。保留未完成清单，不写“完美复现”。不要自动推送 GitHub；若我另行要求发布，先核实 vendor 及数据的许可（该 commit 未含 LICENSE），并避免把密钥、模型权重或无授权材料推送。
+
+验收不是“程序没有报错”，而是：真实模型按记录的配置回答了计划问题，九种表示与八类任务的覆盖/失败都有记录，科学指标能从保存的回答重新计算，我能沿着一条 SMILES → 表示 → prompt → 模型回答 → 标准答案 → 得分的链路解释每一步。

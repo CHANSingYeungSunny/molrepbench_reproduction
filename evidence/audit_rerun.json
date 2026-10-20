@@ -1,0 +1,138 @@
+{
+  "scope": "released data, not model performance",
+  "iupac_network_requested": false,
+  "B5": {
+    "rows": 500,
+    "pair_types": {
+      "positive": 250,
+      "stereoisomer": 125,
+      "substitution": 125
+    },
+    "label_counts": {
+      "True": 250,
+      "False": 250
+    },
+    "source_values": {
+      "not_recorded": 500
+    },
+    "labels_disagree_current_rdkit": 0,
+    "label_disagreement_first10": [],
+    "released_code_disagrees_csv_labels": 375,
+    "stored_selfies_member_mismatches": 0,
+    "selfies_mismatch_first5": [],
+    "identical_iupac_for_distinct_stereo_smiles": 0
+  },
+  "B9": {
+    "rows": 250,
+    "pair_types": {
+      "positive_keto_enol": 108,
+      "positive_amide_imidic": 7,
+      "positive_heterocyclic": 6,
+      "positive_nitroso_oxime": 1,
+      "positive_other": 3,
+      "negative_unrelated": 125
+    },
+    "label_counts": {
+      "Yes": 125,
+      "No": 125
+    },
+    "source_values": {
+      "ChEBI-20": 250
+    },
+    "labels_disagree_current_rdkit": 4,
+    "label_disagreement_first10": [
+      34,
+      62,
+      102,
+      115
+    ],
+    "released_code_disagrees_csv_labels": null,
+    "stored_selfies_member_mismatches": 183,
+    "selfies_mismatch_first5": [
+      {
+        "pair_index": 0,
+        "side": "1"
+      },
+      {
+        "pair_index": 0,
+        "side": "2"
+      },
+      {
+        "pair_index": 1,
+        "side": "1"
+      },
+      {
+        "pair_index": 1,
+        "side": "2"
+      },
+      {
+        "pair_index": 2,
+        "side": "1"
+      }
+    ],
+    "identical_iupac_for_distinct_stereo_smiles": 125
+  },
+  "B10": {
+    "rows": 210,
+    "pair_types": {
+      "positive_acid_base": 40,
+      "positive_amine_ammonium": 30,
+      "positive_sulfonamide": 10,
+      "positive_phosphate": 10,
+      "positive_phenol_phenolate": 15,
+      "negative_unrelated": 105
+    },
+    "label_counts": {
+      "Yes": 105,
+      "No": 105
+    },
+    "source_values": {
+      "ChEBI-20": 210
+    },
+    "labels_disagree_current_rdkit": 0,
+    "label_disagreement_first10": [],
+    "released_code_disagrees_csv_labels": null,
+    "stored_selfies_member_mismatches": 118,
+    "selfies_mismatch_first5": [
+      {
+        "pair_index": 0,
+        "side": "1"
+      },
+      {
+        "pair_index": 1,
+        "side": "2"
+      },
+      {
+        "pair_index": 2,
+        "side": "2"
+      },
+      {
+        "pair_index": 3,
+        "side": "2"
+      },
+      {
+        "pair_index": 4,
+        "side": "1"
+      }
+    ],
+    "identical_iupac_for_distinct_stereo_smiles": 105
+  },
+  "comprehension": {
+    "test_rows": 3297,
+    "subset_rows": 200,
+    "minimum_molecular_weight": 302.326,
+    "minimum_rings": 2,
+    "retrieval_targets_with_3_distractors": 78,
+    "nonempty_representations_in_test": {
+      "canonical_smiles": 3297,
+      "isomeric_smiles": 3297,
+      "randomized_smiles": 3297,
+      "deepsmiles": 3297,
+      "iupac": 3289,
+      "selfies": 3297,
+      "moljson": 3297,
+      "cml": 3297,
+      "inchi": 3297
+    }
+  }
+}

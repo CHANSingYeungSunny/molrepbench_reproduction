@@ -1,0 +1,1 @@
+{"id": "B1:439741:C:canonical_smiles", "prompt_sha256": "c0e3db153043ff051b63feb813be4628fd18ab4192fa32a841458a65ae18e88f", "status": "error", "error": "No final content; inspect token budget or backend reasoning configuration", "latency_seconds": 9.9943}

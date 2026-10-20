@@ -1,0 +1,16 @@
+{
+  "source_commit": "21d36941cddf0dc1ffb5f3590296592dc68e4ac8",
+  "official_tracked_files_verified": 32,
+  "software_tests_passed": 11,
+  "smoke_requests": 270,
+  "paper_requests": 29139,
+  "paper_excluded_inputs": 3,
+  "local_representation_roundtrips_passed": 8,
+  "real_llm_inference_executed": false,
+  "iupac_network_audit_executed": false,
+  "fcd_executed": false,
+  "mechanistic_analysis_executed": false,
+  "guide_pages": 10,
+  "guide_all_pages_visually_checked": true,
+  "caution": "Software fixtures are not LLM results. See README for protocol differences and unresolved data issues."
+}

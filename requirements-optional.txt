@@ -1,0 +1,7 @@
+# Install only when needed. These extensions have NOT been run against a real LLM here.
+# fcd provides ChemNet FCD. It may pull large ML dependencies and model weights.
+fcd
+# For token_audit.py; model/tokenizer download and license terms apply.
+transformers
+# vLLM is intentionally not installed by this cross-platform CPU dependency file.
+# Use a suitable Linux GPU environment and the official vLLM installation guidance.

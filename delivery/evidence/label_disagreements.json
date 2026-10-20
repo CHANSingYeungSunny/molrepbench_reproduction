@@ -1,0 +1,30 @@
+[
+  {
+    "task": 9,
+    "pair_index": 34,
+    "released_label": true,
+    "current_rdkit_label": false,
+    "reason": "version_or_standardization_difference_requires_review"
+  },
+  {
+    "task": 9,
+    "pair_index": 62,
+    "released_label": true,
+    "current_rdkit_label": false,
+    "reason": "version_or_standardization_difference_requires_review"
+  },
+  {
+    "task": 9,
+    "pair_index": 102,
+    "released_label": true,
+    "current_rdkit_label": false,
+    "reason": "version_or_standardization_difference_requires_review"
+  },
+  {
+    "task": 9,
+    "pair_index": 115,
+    "released_label": true,
+    "current_rdkit_label": false,
+    "reason": "version_or_standardization_difference_requires_review"
+  }
+]
